@@ -1,37 +1,18 @@
+import streamlit as st
 import ollama
 
-print("My Chatbot")
-print("Type exit to quit")
+st.title("My AI chatboat")
+st.subheader("welcome!Ask something to AI and it will respond to you")
 
-# Store conversation history
-messages = []
 
-while True:
-    question = input("You: ")
+prompt=st.text_input("Ask AI something",
+                     placeholder="Type your prompt here ....")
 
-    if question.lower() == "exit":
-        print("Bot: Goodbye!")
-        break
 
-    # Add user's message to history
-    messages.append({
-        "role": "user",
-        "content": question
-    })
+if st.button("generate"):
+    if prompt:
+        st.success("your prompt is:" +prompt)
 
-    # Send complete conversation history
-    response = ollama.chat(
-        model="llama3.2",
-        messages=messages
-    )
-
-    # Get bot's response
-    answer = response["message"]["content"]
-
-    print("Bot:", answer)
-
-    # Add bot response to history
-    messages.append({
-        "role": "assistant",
-        "content": answer
-    })
+    else:
+        st.error("please enter a prompt to get response")
+    
